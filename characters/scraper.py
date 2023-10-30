@@ -33,7 +33,7 @@ def parse_characters_response(characters_response: dict) -> list[Character]:
 
 
 async def scrape_single_page(
-        client: AsyncClient, url_to_scrape: str, page: int
+    client: AsyncClient, url_to_scrape: str, page: int
 ) -> list[Character]:
     characters_response = (
         await client.post(url_to_scrape, data={"query": GRAPHQL_QUERY % str(page)})
@@ -48,9 +48,10 @@ async def scrape_characters() -> list[Character]:
 
     try:
         async with httpx.AsyncClient(timeout=Timeout(10.0, read=30.0)) as client:
-            characters_response = (await client.post(url_to_scrape,
-                                                     data={'query': GRAPHQL_QUERY % '1'})).json()
-            num_pages = characters_response['data']['characters']['info']['pages']
+            characters_response = (
+                await client.post(url_to_scrape, data={"query": GRAPHQL_QUERY % "1"})
+            ).json()
+            num_pages = characters_response["data"]["characters"]["info"]["pages"]
             characters = parse_characters_response(characters_response)
 
             characters.extend(
@@ -66,7 +67,7 @@ async def scrape_characters() -> list[Character]:
             )
 
     except httpx.ReadTimeout:
-        print('The server didn\'t respond in time. Please try later.')
+        print("The server didn't respond in time. Please try later.")
         return []
 
     end = time.perf_counter()

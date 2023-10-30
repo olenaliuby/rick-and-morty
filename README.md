@@ -16,8 +16,17 @@
 3. Python, Django/Flask/FastAPI, ORM, PostgreSQL, Git.
 4. All endpoints should be documented via Swagger.
 
+## Implementation:
+
 ### How to run:
 
+- Use the following command to pull the image from Docker Hub: `docker pull oliuby/rick_and_morty_api `
 - Copy .env.sample -> .env and populate with all required data
 - `docker-compose up --build`
 - Create admin user & Create schedule for running sync in DB
+
+### Demo:
+
+![Characters List](demo_1.png)
+![Random Character](demo_2.png)
+![Periodic Tasks](demo_3.png)
