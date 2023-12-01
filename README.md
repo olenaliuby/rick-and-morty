@@ -1,32 +1,67 @@
 # Rick and Morty
 
-### Requirements:
+> An application inspired by the animated series, Rick and Morty. This API service is built utilizing Python, Django,
+> PostgreSQL, Celery, AsyncIO and other technologies. It handles a variety of operations including retrieving random
+> characters, executing character searches, periodically synchronizing data with an external service, and persisting
+> data
+> in a local database amongst others.
 
-1. Endpoint, which return random character from the world of Rick and Morty series.
-2. Endpoint get `search_string` as an argument and return list of all characters,
-   who contains the `search_string` in the name.
-3. On regular basis, app downloads data from external service to inner DB.
-4. Requests of implemented API should work with local DB
-   (Take data from DB not from Rick & Morty API).
+## How to Use
 
-### Technologies to use:
+### Docker Hub Installation
 
-1. Public API: https://rickandmortyapi.com/documentation.
-2. Use Celery as task scheduler for data synchronization for Rick & Morty API.
-3. Python, Django/Flask/FastAPI, ORM, PostgreSQL, Git.
-4. All endpoints should be documented via Swagger.
+You can get the application image directly from Docker Hub:
 
-## Implementation:
+[**Rick and Morty API on the Docker Hub**](https://hub.docker.com/repository/docker/oliuby/rick_and_morty_api)
 
-### How to run:
+Use the following command to pull the image:
 
-- Use the following command to pull the image from Docker Hub: `docker pull oliuby/rick_and_morty_api `
-- Copy .env.sample -> .env and populate with all required data
-- `docker-compose up --build`
-- Create admin user & Create schedule for running sync in DB
+```bash
+docker pull oliuby/rick_and_morty_api
+```
+
+### Installation from GitHub
+
+```bash
+# Clone the repository
+git clone https://github.com/olenaliuby/rick-and-morty
+
+# Create a virtual environment and activate it
+python -m venv venv
+source venv/bin/activate
+
+# Install necessary packages
+pip install -r requirements.txt
+
+# Set up environmental variables for Postgres and your secret key
+POSTGRES_DB=<value>
+POSTGRES_USER=<value>
+POSTGRES_PASSWORD=<value>
+POSTGRES_HOST=<value>
+POSTGRES_PORT=<value>
+SECRET_KEY=<value>
+CELERY_BROKER_URL=<value>
+CELERY_RESULT_BACKEND=<value>
+
+# Apply migrations and start the server
+python manage.py migrate
+python manage.py runserver
+```
+
+### Execution with Docker
+
+To build and run the application with Docker, use the following commands:
+
+```bash
+docker-compose build
+docker-compose up
+```
+
+These commands will build and start all the services defined in docker-compose.yml file, respectively.
 
 ### Demo:
 
 ![Characters List](demo_1.png)
 ![Random Character](demo_2.png)
 ![Periodic Tasks](demo_3.png)
+![Swagger](demo_4.png)
